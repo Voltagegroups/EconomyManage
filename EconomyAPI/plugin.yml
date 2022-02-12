@@ -1,0 +1,10 @@
+name: EconomyApi
+main: Voltage\Api\Economy\EconomyAPI
+version: 0.1
+api: 4.0.0
+authors:
+  - VirVoltaSurMC
+
+permissions:
+  command.set.money.access:
+    default: op
