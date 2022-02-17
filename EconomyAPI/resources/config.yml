@@ -1,3 +1,5 @@
-default: 1000
-max: 9223372036854775807
-database-provider: json
+providers:
+  default:
+    default: 1000
+    max: 9223372036854775807
+    database-provider: json

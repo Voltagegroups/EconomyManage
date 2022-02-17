@@ -17,6 +17,34 @@ class Api
         $this->plugin = $pg;
     }
 
+    public function existPlayer($player) : bool {
+        if ($player instanceof Player) {
+            return EconomyAPI::getProviderSysteme()->existMoney($player->getName());
+        } else if (is_string($player)) {
+            return EconomyAPI::getProviderSysteme()->existMoney($player);
+        } else if ($player instanceof UuidInterface) {
+            $player = $this->plugin->getServer()->getPlayerByUUID($player);
+            if ($player instanceof Player) {
+                return EconomyAPI::getProviderSysteme()->existMoney($player);
+            }
+        }
+        return false;
+    }
+
+    public function hasMoney($player, int $amount) : bool {
+        if ($player instanceof Player) {
+            return EconomyAPI::getProviderSysteme()->getMoney($player->getName()) - $amount >= 0;
+        } else if (is_string($player)) {
+            return EconomyAPI::getProviderSysteme()->getMoney($player) - $amount >= 0;
+        } else if ($player instanceof UuidInterface) {
+            $player = $this->plugin->getServer()->getPlayerByUUID($player);
+            if ($player instanceof Player) {
+                return EconomyAPI::getProviderSysteme()->getMoney($player->getName()) - $amount >= 0;
+            }
+        }
+        return false;
+    }
+
     public function getMoney($player) : int {
         if ($player instanceof Player) {
             return EconomyAPI::getProviderSysteme()->getMoney($player->getName());

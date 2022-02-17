@@ -9,14 +9,18 @@ abstract class ProviderBase
     private EconomyAPI $plugin;
     private int $basemoney = 1000;
     private int $maxmoney = 9223372036854775807;
+    private string $name = "default";
     
-    public function __construct(EconomyAPI $pg) {
+    public function __construct(EconomyAPI $pg, ?string $name = null, ?int $default = null, ?int $maxmoney = null) {
         $this->plugin = $pg;
-        if (EconomyAPI::getData()->exists('default')) {
-            $this->basemoney = EconomyAPI::getData()->get('default');
+        if (!is_null($name)) {
+            $this->name = $name;
         }
-        if (EconomyAPI::getData()->exists('max')) {
-            $this->maxmoney = EconomyAPI::getData()->get('max');
+        if (!is_null($maxmoney)) {
+            $this->maxmoney = $maxmoney;
+        }
+        if (!is_null($maxmoney)) {
+            $this->basemoney = $default;
         }
     }
 
@@ -25,6 +29,8 @@ abstract class ProviderBase
     }
 
     abstract public function load() : void;
+
+    abstract public function getName() : string;
 
     abstract public function getMoney(string $name) : int;
 
@@ -46,6 +52,10 @@ abstract class ProviderBase
 
     public function getMaxMoney() : int {
         return $this->maxmoney;
+    }
+
+    public function getEconomyName() : string {
+        return $this->name;
     }
 
 }

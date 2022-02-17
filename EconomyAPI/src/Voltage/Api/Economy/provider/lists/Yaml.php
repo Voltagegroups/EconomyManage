@@ -6,17 +6,17 @@ use JsonException;
 use Voltage\Api\Economy\provider\ProviderBase;
 use pocketmine\utils\Config;
 
-class Json extends ProviderBase
+class Yaml extends ProviderBase
 {
 
     private Config $player;
 
     public function load() : void {
-        $this->player = new Config($this->getPlugin()->getDataFolder(). $this->getEconomyName() . ".json",Config::JSON);
+        $this->player = new Config($this->getPlugin()->getDataFolder(). $this->getEconomyName() . ".yml",Config::YAML);
     }
 
     public function getName() : string {
-        return "Json";
+        return "Yaml";
     }
 
     public function existMoney(string $name) : bool {

@@ -11,6 +11,7 @@ class EconomyListener implements Listener{
     private static $pg;
 
     public function __construct(EconomyAPI $pg) {
+        var_dump("good");
         self::$pg = $pg;
         $pg->getServer()->getPluginManager()->registerEvents($this,$pg);
     }
@@ -21,12 +22,11 @@ class EconomyListener implements Listener{
 
     public function onJoin(PlayerJoinEvent $event) : void {
         $player = $event->getPlayer();
-        $name = strtolower($player->getName());
-        if (EconomyAPI::getProviderSysteme()->existMoney($name)) {
+        if (!EconomyAPI::getProviderSysteme()->existMoney($player->getName())) {
             $ev = new PlayerCreateAccountMoneyEvent($this->getPlugin(), $player, EconomyAPI::getProviderSysteme()->getBaseMoney());
             $ev->call();
             if (!$ev->isCancelled()) {
-                EconomyAPI::getProviderSysteme()->setMoney($name, EconomyAPI::getProviderSysteme()->getMaxMoney());
+                EconomyAPI::getProviderSysteme()->setMoney($player->getName(), EconomyAPI::getProviderSysteme()->getMaxMoney());
             }
         }
     }
