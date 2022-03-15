@@ -25,4 +25,8 @@ class PlayerCreateAccountMoneyEvent extends MoneyEvent
     public function getBaseMoney() : int {
         return $this->basemoney;
     }
+
+    public function setBaseMoney(int $value) : void {
+        $this->basemoney = $value;
+    }
 }

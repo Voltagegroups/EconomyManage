@@ -43,8 +43,11 @@ class EconomyAPI extends PluginBase
         return $prov;
     }
 
-    public static function getProviderSysteme() : ?ProviderBase {
-        return self::getProvider();
+    /**
+     * @return ProviderBase[]
+     */
+    public static function getProviders() : array {
+        return self::$providers;
     }
 
     public static function getApi() : ?Api {
